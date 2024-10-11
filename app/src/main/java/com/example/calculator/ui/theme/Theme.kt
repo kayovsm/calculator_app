@@ -50,6 +50,8 @@ fun CalculatorTheme(
         else -> LightColorScheme
     }
 
+    ColorApp.updateColorsForTheme(darkTheme)
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
