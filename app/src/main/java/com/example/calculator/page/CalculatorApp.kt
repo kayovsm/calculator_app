@@ -5,13 +5,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.CalculatorController
 import com.example.calculator.ui.ButtonApp
 import com.example.calculator.ui.theme.CalculatorTheme
+import com.example.calculator.ui.theme.ColorApp
 
 @Composable
 fun CalculatorApp() {
@@ -29,14 +29,13 @@ fun CalculatorApp() {
             text = controller.input,
             style = MaterialTheme.typography.headlineMedium.copy(fontSize = 36.sp),
             modifier = Modifier.fillMaxWidth(),
-            color = Color.Black
+            color = ColorApp.black
         )
         Text(
             text = controller.result,
             style = MaterialTheme.typography.headlineMedium.copy(fontSize = 48.sp),
             modifier = Modifier.fillMaxWidth(),
-            color = Color.LightGray
-            
+            color = ColorApp.lightGrey
         )
         Spacer(modifier = Modifier.height(10.dp))
         Spacer(modifier = Modifier.weight(1f))
@@ -47,11 +46,11 @@ fun CalculatorApp() {
 @Composable
 fun CalculatorButtons(controller: CalculatorController) {
     val buttons = listOf(
-        "C", "( )", "%", "/",
+        "C", "DEL", "%", "/",
         "7", "8", "9", "x",
         "4", "5", "6", "-",
         "1", "2", "3", "+",
-        ",", "0", " ", "="
+        "( )", "0", ".", "="
     )
 
     Column(
@@ -70,17 +69,27 @@ fun CalculatorButtons(controller: CalculatorController) {
                             .weight(1f)
                             .aspectRatio(1f)
                         val backgroundColor = when (button) {
-                            "=" -> Color.Red
-                            "C" -> Color.Gray
-                            else -> Color.Blue
+                            "=" -> ColorApp.blueDark
+                            "DEL" -> ColorApp.redLight
+                            "+", "-", "x", "/", "%", ".", "( )" -> ColorApp.blue
+                            else -> ColorApp.blueLight
                         }
-                        val textColor = if (button == "C") Color.Red else Color.Black
+                        val textFontSize = when (button) {
+                            "DEL" -> 15.sp
+                            else -> 30.sp
+                        }
+                        val textColor = when (button) {
+                            "C" -> ColorApp.redLight
+                            "DEL" -> ColorApp.white
+                            else -> ColorApp.black
+                        }
                         ButtonApp(
                             label = button,
                             onClick = { controller.onButtonClick(button) },
                             modifier = buttonModifier,
                             backgroundColor = backgroundColor,
-                            textColor = textColor
+                            textColor = textColor,
+                            textSize = textFontSize
                         )
                     } else {
                         Spacer(modifier = Modifier.weight(1f))

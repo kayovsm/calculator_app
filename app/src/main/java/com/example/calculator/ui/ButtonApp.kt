@@ -13,29 +13,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.calculator.ui.theme.ColorApp
 
 @Composable
 fun ButtonApp(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Color.Transparent,
-    textColor: Color = Color.Black
+    backgroundColor: Color = ColorApp.transparent,
+    textColor: Color = ColorApp.black,
+    textSize: TextUnit = 30.sp
 ) {
     Button(
         onClick = onClick,
         modifier = modifier
             .padding(all = 4.dp),
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
-        shape = RoundedCornerShape(20.dp)
+        shape = RoundedCornerShape(25.dp)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = label, style = TextStyle(fontSize = 30.sp, color = textColor))
+            Text(text = label, style = TextStyle(fontSize = textSize, color = textColor))
         }
     }
 }
